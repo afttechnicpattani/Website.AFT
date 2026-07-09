@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <title>องค์การนักวิชาชีพในอนาคตแห่งประเทศไทย วท.ปัตตานี</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ---------------- Reset & Base ---------------- */
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f4f6f9; 
+    }
+    .prompt-font { font-family: 'Prompt', sans-serif; }
+
+    /* ---------------- Splash Screen ---------------- */
+    #splash-screen {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #2c2c2c; 
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999; color: #D4AF37; text-align: center;
+      transition: opacity 1s ease-out, visibility 1s;
+    }
+    #splash-screen img {
+      max-width: 90%; max-height: 60vh;
+      object-fit: contain; margin-bottom: 20px;
+      border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .loader-bar {
+      width: 250px; height: 4px;
+      background: #444; border-radius: 4px;
+      margin-top: 20px; overflow: hidden;
+    }
+    .loader-progress {
+      width: 0%; height: 100%;
+      background: linear-gradient(90deg, #D4AF37, #FFF2CD);
+      animation: load 5s linear forwards;
+    }
+    @keyframes load { 100% { width: 100%; } }
+
+    /* ---------------- Alert Banner (แถบแจ้งเตือน) ---------------- */
+    .dev-alert {
+      background: linear-gradient(90deg, #f1c40f, #f39c12);
+      color: #5c0000;
+      padding: 12px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .dev-alert i.icon-warn { margin-right: 8px; font-size: 1.2rem; }
+    .dev-alert-close {
+      position: absolute;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #5c0000;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .dev-alert-close:hover { transform: scale(1.2); color: #8B0000; }
+
+    /* ---------------- Top Bar ---------------- */
+    .topbar {
+      background-color: #7a0000;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .topbar-left {
+      display: flex; align-items: center; gap: 15px;
+      font-weight: 700; font-size: 1.2rem;
+    }
+    .topbar-left img { 
+      width: 45px; height: 45px; 
+      border-radius: 50%; background: white; 
+      padding: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* ---------------- Hero Section ---------------- */
+    .hero-section {
+      position: relative;
+      background: linear-gradient(to bottom, rgba(139, 0, 0, 0.85), rgba(100, 0, 0, 0.95)), 
+                  url('https://lh5.googleusercontent.com/d/1RvtVAFhaMfQqQ_-ZHEBw9JNz1erCxKhS') center/cover no-repeat fixed;
+      padding: 50px 20px 80px 20px;
+      color: white;
+      text-align: center;
+      border-bottom: 5px solid #D4AF37;
+    }
+    
+    .hero-logos-container {
+      display: flex; justify-content: center; align-items: center;
+      gap: 25px; margin-bottom: 25px;
+    }
+    .hero-logo-main {
+      width: 120px; height: 120px;
+      object-fit: contain; background: white;
+      border-radius: 50%; padding: 8px;
+      border: 4px solid #D4AF37;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+    }
+    .hero-logo-secondary {
+      width: auto; height: 120px;
+      object-fit: contain; background: white;
+      border-radius: 15px; padding: 10px;
+      border: 4px solid #D4AF37;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+    }
+
+    .hero-title {
+      font-weight: 700; color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-size: 2.2rem; margin-bottom: 5px;
+    }
+    .hero-subtitle {
+      font-weight: 500; font-size: 1.6rem; color: #FBF5B7;
+      letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      margin-bottom: 15px;
+    }
+    .hero-desc {
+      font-size: 1rem; color: rgba(255,255,255,0.85);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .divider {
+      display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0;
+    }
+    .divider .line { height: 2px; width: 60px; background-color: rgba(255,255,255,0.4); }
+    .divider i { color: #FBF5B7; font-size: 1.2rem; text-shadow: 0 0 10px rgba(212,175,55,0.8); }
+
+    /* ---------------- Cards Layout ---------------- */
+    .portal-container {
+      margin-top: 40px; 
+      position: relative; z-index: 10;
+      padding-bottom: 60px;
+    }
+    
+    .section-title {
+      color: #8B0000;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    .section-subtitle {
+      color: #5c0000;
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    .portal-card {
+      background: #ffffff; border-radius: 15px;
+      padding: 40px 30px; text-align: center;
+      color: #333; display: block; width: 100%; height: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none; cursor: pointer; outline: none;
+    }
+    .portal-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 40px rgba(139, 0, 0, 0.15);
+      border-color: #D4AF37;
+    }
+    .icon-wrapper {
+      width: 80px; height: 80px; margin: 0 auto 20px auto;
+      background: linear-gradient(135deg, #8B0000 0%, #5c0000 100%);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 20px rgba(139, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .portal-card:hover .icon-wrapper {
+      background: linear-gradient(135deg, #D4AF37 0%, #AA771C 100%);
+      transform: scale(1.1) rotate(5deg);
+    }
+    .icon-wrapper i { font-size: 2rem; color: white; }
+    .card-title { font-family: 'Prompt', sans-serif; font-size: 1.3rem; font-weight: 600; color: #8B0000; margin-bottom: 12px; }
+    .portal-card:hover .card-title { color: #D4AF37; }
+    .card-text { font-size: 0.95rem; color: #666; line-height: 1.6; font-family: 'Sarabun', sans-serif;}
+
+    .manual-card {
+      background: #ffffff; border-radius: 15px;
+      padding: 15px; text-align: center;
+      color: #333; display: block; width: 100%; height: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+    }
+    .manual-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 40px rgba(139, 0, 0, 0.15);
+      border-color: #D4AF37;
+    }
+    .manual-card img {
+      width: 100%; 
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .manual-card:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ---------------- Footer ---------------- */
+    .footer { padding-top: 40px; color: #1b325f; background-color: #ffffff; border-top: 1px solid #eaeaea; }
+    .footer-container {
+      display: flex; justify-content: space-around; flex-wrap: wrap;
+      max-width: 1000px; margin: 0 auto; gap: 40px; padding: 0 20px;
+    }
+    .footer-col h5 {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;
+      display: flex; align-items: center; gap: 10px; color: #1b325f;
+    }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col ul li {
+      margin-bottom: 18px; display: flex; align-items: center; gap: 15px;
+      font-size: 0.95rem; font-weight: 500;
+    }
+    .footer-col ul li i { font-size: 1.3rem; width: 25px; text-align: center; }
+    
+    .footer-bottom {
+      text-align: center; padding: 25px 20px; margin-top: 30px;
+      border-top: 2px solid #e1e6ef; 
+      font-size: 0.9rem; color: #666;
+    }
+    .footer-bottom p { margin: 5px 0; }
+    .footer-bottom strong { color: #1b325f; }
+
+    /* ---------------- App Viewer (ซ่อนแถบฟ้า) ---------------- */
+    #app-viewer {
+      display: none; position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #f4f4f4; z-index: 10000; overflow: hidden;
+    }
+    .btn-close-app {
+      position: absolute; top: 15px; right: 20px; z-index: 10001;
+      background-color: #8B0000; color: white;
+      padding: 10px 20px; border-radius: 8px;
+      font-family: 'Prompt', sans-serif; font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex; align-items: center; gap: 8px; border: none;
+    }
+    .btn-close-app:hover { background-color: #5c0000; }
+    
+    #app-iframe {
+      position: absolute;
+      top: -46px; left: 0;
+      width: 100%; height: calc(100% + 46px);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="splash-screen">
+    <img src="https://lh5.googleusercontent.com/d/1qqV_78t0QfNSTvKM9oyloD5h618rlwUB" alt="น้อมรำลึก" onerror="this.src='https://upload.wikimedia.org/wikipedia/th/thumb/e/e6/%E0%B9%82%E0%B8%A5%E0%B9%82%E0%B8%81%E0%B9%89_%E0%B8%AD%E0%B8%A7%E0%B8%97.png/200px-%E0%B9%82%E0%B8%A5%E0%B9%82%E0%B8%81%E0%B9%89_%E0%B8%AD%E0%B8%A7%E0%B8%97.png';">
+    <h4 class="prompt-font mb-2">กำลังเข้าสู่เว็บไซต์ใน <span id="countdown">5</span> วินาที...</h4>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <div id="main-content" style="display:none; opacity: 0;">
+    
+    <div id="dev-alert" class="dev-alert">
+      <i class="fas fa-exclamation-triangle icon-warn"></i>
+      <span><strong>แจ้งเตือน:</strong> เว็บไซต์อยู่ระหว่างพัฒนาและปรับปรุงอยู่ ยังไม่สมบูรณ์ 100%</span>
+      <button class="dev-alert-close" onclick="closeDevAlert()" title="ปิดการแจ้งเตือน"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="topbar prompt-font">
+      <div class="topbar-left">
+        <img src="https://lh5.googleusercontent.com/d/1dbkAs7wJfkjWM6URNrVxZZXuInjZaxjs" alt="โลโก้ อวท" onerror="this.src='https://lh5.googleusercontent.com/d/1dbkAs7wJfkjWM6URNrVxZZXuInjZaxjs';">
+        <span>องค์การนักวิชาชีพในอนาคตแห่งประเทศไทย | วิทยาลัยเทคนิคปัตตานี</span>
+      </div>
+    </div>
+
+    <section class="hero-section">
+      <div class="container">
+        
+        <div class="hero-logos-container">
+          <img src="https://lh5.googleusercontent.com/d/1dbkAs7wJfkjWM6URNrVxZZXuInjZaxjs" alt="โลโก้ อวท" class="hero-logo-main">
+          <img src="https://lh5.googleusercontent.com/d/1F3BqXQaYLEc2OidxkL6lKjUFIdaQFxDx" alt="โลโก้ R-Skill" class="hero-logo-secondary">
+        </div>
+
+        <h1 class="hero-title prompt-font">องค์การนักวิชาชีพในอนาคตแห่งประเทศไทย</h1>
+        <h3 class="hero-subtitle prompt-font">วิทยาลัยเทคนิคปัตตานี</h3>
+        <div class="divider">
+          <div class="line"></div>
+          <i class="fas fa-star"></i>
+          <div class="line"></div>
+        </div>
+        <p class="hero-desc">Association of Future Thai Professional Pattani Technical College</p>
+      </div>
+    </section>
+
+    <section class="portal-container">
+      <div class="container">
+        
+        <div class="text-center mb-4">
+          <h2 class="prompt-font section-title">ระบบบริการออนไลน์สำหรับนักศึกษา</h2>
+          <div class="divider">
+            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+            <i class="fas fa-desktop" style="color: #D4AF37;"></i>
+            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+          </div>
+        </div>
+
+        <div class="row g-4 justify-content-center mb-5 pb-4">
+          <div class="col-md-6 col-lg-5">
+            <button class="portal-card" onclick="openApp('https://script.google.com/macros/s/AKfycbysXd4EQOxilHAifGWxecO-6-l0jBzezoz8XqZWvhxeQy2BO6ZVSV17pqZUfp45-OcwOw/exec')">
+              <div class="icon-wrapper">
+                <i class="fas fa-id-card-clip"></i>
+              </div>
+              <div class="card-title">ระบบรับสมัครคณะกรรมการ อวท.</div>
+              <div class="card-text">ระบบกรอกใบสมัครและตรวจสอบสถานะ<br>คณะกรรมการดำเนินงาน อวท.</div>
+            </button>
+          </div>
+
+          <div class="col-md-6 col-lg-5">
+            <button class="portal-card" onclick="openApp('https://script.google.com/macros/s/AKfycbzMaOeUgPgYHXWSsKuMyJGDelhhx06Fd_RwU9pwZIZagyZanX2kS_pe5lWiZoqgwKm0GQ/exec')">
+              <div class="icon-wrapper">
+                <i class="fas fa-vote-yea"></i>
+              </div>
+              <div class="card-title">ระบบเลือกตั้งนายกองค์การฯ</div>
+              <div class="card-text">เข้าสู่ระบบอิเล็กทรอนิกส์เพื่อลงคะแนนเสียง<br>เลือกตั้งนายกองค์การนักวิชาชีพฯ</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center mb-4 mt-4">
+          <h2 class="prompt-font section-subtitle">คู่มือการประเมินองค์การนักวิชาชีพในอนาคตแห่งประเทศไทย</h2>
+          <h2 class="prompt-font section-subtitle">และสมาชิกดีเด่นโครงการภายใต้การนิเทศ</h2>
+          <div class="divider">
+            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+            <i class="fas fa-book-open" style="color: #D4AF37;"></i>
+            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+          </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+          
+          <div class="col-md-4 col-sm-6">
+            <a href="https://drive.google.com/drive/folders/1FNa842hcgXJBvGDlzILHLP8ghDM3WfiC" class="manual-card" target="_blank">
+              <img src="https://lh5.googleusercontent.com/d/1L2ZXp8AfpTGDjm2le_Y88VrNF0AMY9zq" alt="ระเบียบสำนักงานคณะกรรมการการอาชีวศึกษา">
+              <div class="card-title mt-2">ระเบียบฯ อวท.</div>
+            </a>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <a href="https://drive.google.com/drive/folders/108U-RFxf5fIHALRwLAo4glym1_rpKI4Z" class="manual-card" target="_blank">
+              <img src="https://lh5.googleusercontent.com/d/14Wj1K2Z4k-1GtS1DPeTEPpRbCy8CltxC" alt="คู่มือการประเมิน">
+              <div class="card-title mt-2">คู่มือการประเมิน</div>
+            </a>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <a href="https://drive.google.com/drive/folders/1FFL1uUd2THJAInuYrRjeqHh5JmAUMYqP" class="manual-card" target="_blank">
+              <img src="https://lh5.googleusercontent.com/d/115sCEZhjJ2uD7aouQVrsS5cYoaoNjER-" alt="แผนปฏิบัติกิจกรรม">
+              <div class="card-title mt-2">แผนปฏิบัติกิจกรรม</div>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h5 class="prompt-font"><i class="fas fa-layer-group"></i> หน่วยงานสนับสนุน</h5>
+          <ul>
+            <li><i class="fas fa-users" style="color:#0984e3;"></i> ฝ่ายกิจการนักเรียน-นักศึกษา</li>
+            <li><i class="fas fa-award" style="color:#e17055;"></i> องค์การนักวิชาชีพในอนาคตแห่งประเทศไทย</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5 class="prompt-font"><i class="fas fa-phone-alt"></i> ช่องทางติดต่อ</h5>
+          <ul>
+            <li><i class="fas fa-envelope" style="color:#d63031;"></i> Email: aft.technicpattani@gmail.com</li>
+            <li><i class="fab fa-line" style="color:#00b894;"></i> ID LINE: adisak_2006</li>
+            <li><i class="fas fa-phone" style="color:#0984e3;"></i> 093-549-6751</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Developed by <strong class="prompt-font">Adisak Loma</strong></p>
+        <p>© 2026 Pattani Technical College</p>
+      </div>
+    </div>
+
+  </div> 
+
+  <div id="app-viewer">
+    <button class="btn-close-app" onclick="closeApp()">
+      <i class="fas fa-arrow-left"></i> กลับหน้าหลัก
+    </button>
+    <iframe id="app-iframe" src=""></iframe>
+  </div>
+
+  <script>
+    // 1. ระบบนับถอยหลังหน้า Splash Screen
+    let timeLeft = 5;
+    const countdownElement = document.getElementById('countdown');
+    const splashScreen = document.getElementById('splash-screen');
+    const mainContent = document.getElementById('main-content');
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownElement.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        splashScreen.style.opacity = '0';
+        splashScreen.style.visibility = 'hidden';
+        
+        setTimeout(() => {
+          splashScreen.style.display = 'none'; 
+          mainContent.style.display = 'block'; 
+          setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+        }, 1000);
+      }
+    }, 1000);
+
+    // 2. ฟังก์ชันปิดแถบแจ้งเตือน
+    function closeDevAlert() {
+      document.getElementById('dev-alert').style.display = 'none';
+    }
+
+    // 3. ระบบซ่อนแถบฟ้า iFrame 
+    function openApp(url) {
+      if (!url || url === 'ใส่_URL_ระบบรับสมัครของคุณตรงนี้') {
+        alert("กรุณาใส่ URL ของระบบในโค้ดให้เรียบร้อยก่อนใช้งานครับ");
+        return;
+      }
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('app-viewer').style.display = 'block';
+      document.getElementById('app-iframe').src = url;
+    }
+
+    function closeApp() {
+      document.getElementById('app-viewer').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('app-iframe').src = ''; // เคลียร์ URL คืน
+    }
+  </script>
+
+</body>
+</html>
