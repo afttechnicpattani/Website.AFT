@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- บังคับ Viewport ให้หน้าจอกว้าง 1280px เสมอ เพื่อให้มือถือซูมออกและเห็นเป็นหน้าคอม -->
+  <meta name="viewport" content="width=1280">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <title>องค์การนักวิชาชีพในอนาคตแห่งประเทศไทย วท.ปัตตานี</title>
   
@@ -18,7 +19,18 @@
       width: 100%; height: 100%;
       font-family: 'Sarabun', sans-serif;
       background-color: #f4f6f9; 
+      /* ล็อคความกว้างขั้นต่ำของเว็บให้เท่าคอมพิวเตอร์ */
+      min-width: 1280px; 
+      overflow-x: auto;
     }
+    
+    /* บังคับคอนเทนเนอร์ให้กว้างคงที่ ไม่ย่อตามหน้าจอ */
+    .container {
+      width: 1140px !important;
+      max-width: 1140px !important;
+      margin: 0 auto;
+    }
+    
     .prompt-font { font-family: 'Prompt', sans-serif; }
 
     /* ---------------- Splash Screen ---------------- */
@@ -30,6 +42,7 @@
       align-items: center; justify-content: center;
       z-index: 9999; color: #D4AF37; text-align: center;
       transition: opacity 1s ease-out, visibility 1s;
+      min-width: 1280px; /* ล็อคหน้าโหลด */
     }
     #splash-screen img {
       max-width: 90%; max-height: 60vh;
@@ -220,25 +233,125 @@
       transform: scale(1.03);
     }
 
-    /* ---------------- Footer ---------------- */
-    .footer { padding-top: 40px; color: #1b325f; background-color: #ffffff; border-top: 1px solid #eaeaea; }
+    /* ---------------- Tables ---------------- */
+    .table-container {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .custom-table {
+      margin-bottom: 0; 
+    }
+    .custom-table thead th {
+      background-color: #8B0000 !important;
+      color: #ffffff !important;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      padding: 15px;
+      border: none;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .custom-table td {
+      vertical-align: middle;
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .custom-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .custom-table tbody tr:hover {
+      background-color: #fdf8eb; 
+    }
+    
+    /* ---------------- Buttons ---------------- */
+    .btn-green {
+      background-color: #28a745; 
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+    }
+    .btn-green:hover {
+      background-color: #218838;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+    }
+    .btn-back {
+      background-color: #fff;
+      color: #8B0000;
+      border: 2px solid #8B0000;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn-back:hover {
+      background-color: #8B0000;
+      color: white;
+    }
+
+    /* ---------------- Footer & Stats ---------------- */
+    .footer { padding-top: 50px; color: #1b325f; background-color: #ffffff; border-top: 1px solid #eaeaea; }
     .footer-container {
-      display: flex; justify-content: space-around; flex-wrap: wrap;
-      max-width: 1000px; margin: 0 auto; gap: 40px; padding: 0 20px;
+      display: flex; justify-content: space-around;
+      max-width: 1200px; margin: 0 auto; gap: 30px; padding: 0 20px;
     }
+    .footer-col { flex: 1; min-width: 280px; }
     .footer-col h5 {
-      font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;
-      display: flex; align-items: center; gap: 10px; color: #1b325f;
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 25px;
+      display: flex; align-items: center; gap: 10px; color: #8B0000;
     }
-    .footer-col ul { list-style: none; padding: 0; margin: 0; }
-    .footer-col ul li {
-      margin-bottom: 18px; display: flex; align-items: center; gap: 15px;
+    .footer-col ul.contact-list { list-style: none; padding: 0; margin: 0; }
+    .footer-col ul.contact-list li {
+      margin-bottom: 15px; display: flex; align-items: center; gap: 15px;
       font-size: 0.95rem; font-weight: 500;
     }
-    .footer-col ul li i { font-size: 1.3rem; width: 25px; text-align: center; }
+    .footer-col ul.contact-list li i { font-size: 1.2rem; width: 25px; text-align: center; }
     
+    /* สไตล์สำหรับกล่องสถิติ */
+    .stats-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);
+      border: 1px solid #eef0f3;
+    }
+    .stats-list { list-style: none; padding: 0; margin: 0; }
+    .stats-list li {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px dashed #ddd;
+      font-size: 0.95rem; font-weight: 500; color: #555;
+    }
+    .stats-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .stats-list li span i { margin-right: 5px; }
+    .stats-list li strong {
+      font-family: 'Prompt', sans-serif; color: #8B0000;
+      background: #fff; padding: 2px 10px; border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08); font-size: 0.9rem;
+    }
+    
+    /* Animation สำหรับจุดออนไลน์ */
+    .pulse-dot {
+      display: inline-block; width: 8px; height: 8px;
+      background-color: #28a745; border-radius: 50%;
+      box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+      animation: pulse 1.5s infinite;
+      margin-right: 5px;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(40, 167, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    }
+
     .footer-bottom {
-      text-align: center; padding: 25px 20px; margin-top: 30px;
+      text-align: center; padding: 25px 20px; margin-top: 40px;
       border-top: 2px solid #e1e6ef; 
       font-size: 0.9rem; color: #666;
     }
@@ -250,6 +363,7 @@
       display: none; position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       background: #f4f4f4; z-index: 10000; overflow: hidden;
+      min-width: 1280px; /* ล็อคหน้าจอสำหรับ iFrame */
     }
     .btn-close-app {
       position: absolute; top: 15px; right: 20px; z-index: 10001;
@@ -315,93 +429,375 @@
 
     <section class="portal-container">
       <div class="container">
-        
-        <div class="text-center mb-4">
-          <h2 class="prompt-font section-title">ระบบบริการออนไลน์สำหรับนักศึกษา</h2>
-          <div class="divider">
-            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
-            <i class="fas fa-desktop" style="color: #D4AF37;"></i>
-            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
-          </div>
-        </div>
 
-        <div class="row g-4 justify-content-center mb-5 pb-4">
-          <div class="col-md-6 col-lg-5">
-            <button class="portal-card" onclick="openApp('https://script.google.com/macros/s/AKfycbysXd4EQOxilHAifGWxecO-6-l0jBzezoz8XqZWvhxeQy2BO6ZVSV17pqZUfp45-OcwOw/exec')">
-              <div class="icon-wrapper">
-                <i class="fas fa-id-card-clip"></i>
-              </div>
-              <div class="card-title">ระบบรับสมัครคณะกรรมการ อวท.</div>
-              <div class="card-text">ระบบกรอกใบสมัครและตรวจสอบสถานะ<br>คณะกรรมการดำเนินงาน อวท.</div>
-            </button>
-          </div>
-
-          <div class="col-md-6 col-lg-5">
-            <button class="portal-card" onclick="openApp('https://script.google.com/macros/s/AKfycbzMaOeUgPgYHXWSsKuMyJGDelhhx06Fd_RwU9pwZIZagyZanX2kS_pe5lWiZoqgwKm0GQ/exec')">
-              <div class="icon-wrapper">
-                <i class="fas fa-vote-yea"></i>
-              </div>
-              <div class="card-title">ระบบเลือกตั้งนายกองค์การฯ</div>
-              <div class="card-text">เข้าสู่ระบบอิเล็กทรอนิกส์เพื่อลงคะแนนเสียง<br>เลือกตั้งนายกองค์การนักวิชาชีพฯ</div>
-            </button>
-          </div>
-        </div>
-
-        <div class="text-center mb-4 mt-4">
-          <h2 class="prompt-font section-subtitle">คู่มือการประเมินองค์การนักวิชาชีพในอนาคตแห่งประเทศไทย</h2>
-          <h2 class="prompt-font section-subtitle">และสมาชิกดีเด่นโครงการภายใต้การนิเทศ</h2>
-          <div class="divider">
-            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
-            <i class="fas fa-book-open" style="color: #D4AF37;"></i>
-            <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
-          </div>
-        </div>
-
-        <div class="row g-4 justify-content-center">
+        <!-- ======================= PAGE 1 (หน้าเมนูหลัก) ======================= -->
+        <div id="page-1">
           
-          <div class="col-md-4 col-sm-6">
-            <a href="https://drive.google.com/drive/folders/1FNa842hcgXJBvGDlzILHLP8ghDM3WfiC" class="manual-card" target="_blank">
-              <img src="https://lh5.googleusercontent.com/d/1L2ZXp8AfpTGDjm2le_Y88VrNF0AMY9zq" alt="ระเบียบสำนักงานคณะกรรมการการอาชีวศึกษา">
-              <div class="card-title mt-2">ระเบียบฯ อวท.</div>
-            </a>
+          <div class="text-center mb-4">
+            <h2 class="prompt-font section-title">ระบบบริการออนไลน์สำหรับนักศึกษา</h2>
+            <div class="divider">
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+              <i class="fas fa-desktop" style="color: #D4AF37;"></i>
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+            </div>
           </div>
 
-          <div class="col-md-4 col-sm-6">
-            <a href="https://drive.google.com/drive/folders/108U-RFxf5fIHALRwLAo4glym1_rpKI4Z" class="manual-card" target="_blank">
-              <img src="https://lh5.googleusercontent.com/d/14Wj1K2Z4k-1GtS1DPeTEPpRbCy8CltxC" alt="คู่มือการประเมิน">
-              <div class="card-title mt-2">คู่มือการประเมิน</div>
-            </a>
+          <div class="row justify-content-center mb-5 pb-4" style="gap: 24px;">
+            
+            <div class="col-5">
+              <button class="portal-card" onclick="openApp('https://script.google.com/macros/s/AKfycbysXd4EQOxilHAifGWxecO-6-l0jBzezoz8XqZWvhxeQy2BO6ZVSV17pqZUfp45-OcwOw/exec')">
+                <div class="icon-wrapper">
+                  <i class="fas fa-id-card-clip"></i>
+                </div>
+                <div class="card-title">ระบบรับสมัครคณะกรรมการ อวท.</div>
+                <div class="card-text">ระบบกรอกใบสมัครและตรวจสอบสถานะ<br>คณะกรรมการดำเนินงาน อวท.</div>
+              </button>
+            </div>
+
+            <div class="col-5">
+              <button class="portal-card" onclick="openApp('https://script.google.com/macros/s/AKfycbzMaOeUgPgYHXWSsKuMyJGDelhhx06Fd_RwU9pwZIZagyZanX2kS_pe5lWiZoqgwKm0GQ/exec')">
+                <div class="icon-wrapper">
+                  <i class="fas fa-vote-yea"></i>
+                </div>
+                <div class="card-title">ระบบเลือกตั้งนายกองค์การฯ</div>
+                <div class="card-text">เข้าสู่ระบบอิเล็กทรอนิกส์เพื่อลงคะแนนเสียง<br>เลือกตั้งนายกองค์การนักวิชาชีพฯ</div>
+              </button>
+            </div>
+
+            <!-- เมนูที่ 3: สลับไปหน้าตารางรายงาน (Page 3) -->
+            <div class="col-5">
+              <button class="portal-card" onclick="switchPage('page-3')">
+                <div class="icon-wrapper">
+                  <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div class="card-title">แบบรายงานการเข้าร่วมกิจกรรมนักศึกษา</div>
+                <div class="card-text">ระบบรายงานผลการเข้าร่วมกิจกรรม<br>และโครงการต่างๆ สำหรับนักศึกษา</div>
+              </button>
+            </div>
+
+            <!-- เมนูที่ 4: สลับไปหน้าตารางเกียรติบัตร (Page 2) -->
+            <div class="col-5">
+              <button class="portal-card" onclick="switchPage('page-2')">
+                <div class="icon-wrapper">
+                  <i class="fas fa-certificate"></i>
+                </div>
+                <div class="card-title">ดาวน์โหลดเกียรติบัตรการเข้าร่วมกิจกรรม</div>
+                <div class="card-text">ระบบค้นหาและดาวน์โหลดเกียรติบัตร<br>สำหรับผู้เข้าร่วมโครงการและกิจกรรมต่างๆ</div>
+              </button>
+            </div>
+
           </div>
 
-          <div class="col-md-4 col-sm-6">
-            <a href="https://drive.google.com/drive/folders/1FFL1uUd2THJAInuYrRjeqHh5JmAUMYqP" class="manual-card" target="_blank">
-              <img src="https://lh5.googleusercontent.com/d/115sCEZhjJ2uD7aouQVrsS5cYoaoNjER-" alt="แผนปฏิบัติกิจกรรม">
-              <div class="card-title mt-2">แผนปฏิบัติกิจกรรม</div>
-            </a>
+          <!-- ส่วนคู่มือประเมิน -->
+          <div class="text-center mb-4 mt-4">
+            <h2 class="prompt-font section-subtitle">คู่มือการประเมินองค์การนักวิชาชีพในอนาคตแห่งประเทศไทย</h2>
+            <h2 class="prompt-font section-subtitle">และสมาชิกดีเด่นโครงการภายใต้การนิเทศ</h2>
+            <div class="divider">
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+              <i class="fas fa-book-open" style="color: #D4AF37;"></i>
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center" style="gap: 24px;">
+            <div class="col-3">
+              <a href="https://drive.google.com/drive/folders/1FNa842hcgXJBvGDlzILHLP8ghDM3WfiC" class="manual-card" target="_blank">
+                <img src="https://lh5.googleusercontent.com/d/1L2ZXp8AfpTGDjm2le_Y88VrNF0AMY9zq" alt="ระเบียบสำนักงานคณะกรรมการการอาชีวศึกษา">
+                <div class="card-title mt-2">ระเบียบฯ อวท.</div>
+              </a>
+            </div>
+            <div class="col-3">
+              <a href="https://drive.google.com/drive/folders/108U-RFxf5fIHALRwLAo4glym1_rpKI4Z" class="manual-card" target="_blank">
+                <img src="https://lh5.googleusercontent.com/d/14Wj1K2Z4k-1GtS1DPeTEPpRbCy8CltxC" alt="คู่มือการประเมิน">
+                <div class="card-title mt-2">คู่มือการประเมิน</div>
+              </a>
+            </div>
+            <div class="col-3">
+              <a href="https://drive.google.com/drive/folders/1FFL1uUd2THJAInuYrRjeqHh5JmAUMYqP" class="manual-card" target="_blank">
+                <img src="https://lh5.googleusercontent.com/d/115sCEZhjJ2uD7aouQVrsS5cYoaoNjER-" alt="แผนปฏิบัติกิจกรรม">
+                <div class="card-title mt-2">แผนปฏิบัติกิจกรรม</div>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+        <!-- ======================= END PAGE 1 ======================= -->
+
+
+        <!-- ======================= PAGE 2 (ตารางดาวน์โหลดเกียรติบัตร) ======================= -->
+        <div id="page-2" style="display: none;">
+          
+          <div class="text-center mb-4">
+            <h2 class="prompt-font section-title">ดาวน์โหลดเกียรติบัตรการเข้าร่วมกิจกรรม</h2>
+            <div class="divider">
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+              <i class="fas fa-award" style="color: #D4AF37;"></i>
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <button class="btn btn-back px-4 py-2" onclick="switchPage('page-1')">
+              <i class="fas fa-arrow-left"></i> ย้อนกลับสู่หน้าเมนูหลัก
+            </button>
+          </div>
+
+          <div class="table-container">
+            <div class="table-responsive">
+              <table class="table custom-table align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center" style="width: 10%;">ลำดับ</th>
+                    <th scope="col" style="width: 60%;">วันที่จัดกิจกรรม / ชื่อกิจกรรม</th>
+                    <th scope="col" class="text-center" style="width: 30%;">ดาวน์โหลดเกียรติบัตร</th>
+                  </tr>
+                </thead>
+                <tbody class="prompt-font">
+                  <tr>
+                    <td class="text-center">1</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมจิตอาสาพัฒนามัสยิด</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i> วันที่ 15 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://drive.google.com/drive/folders/10oW-p06rCigrQhYNcwuJW5Bm-UsuQ9z2" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-cloud-download-alt"></i> ดาวน์โหลด
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">2</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมส่งเสริมศาสนา ศิลปะ วัฒนธรรม (หล่อเทียน)</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i> วันที่ 15 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://drive.google.com/drive/folders/10EQpNrE6tCch9Pr0z6KfwGvKDQcKL01q" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-cloud-download-alt"></i> ดาวน์โหลด
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">3</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมอบรมคุณธรรม จริยธรรม</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i> วันที่ 21 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-light text-muted border px-3 py-2" style="font-weight: 400; font-size: 0.85rem;">
+                        <i class="fas fa-lock"></i> ยังไม่มีเอกสาร
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">4</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมส่งเสริมศาสนา ศิลปะ วัฒนธรรม (แห่เทียน)</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i> วันที่ 21 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-light text-muted border px-3 py-2" style="font-weight: 400; font-size: 0.85rem;">
+                        <i class="fas fa-lock"></i> ยังไม่มีเอกสาร
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">5</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมเผยแพร่ความรู้ด้านอนามัยการเจริญพันธุ์ และการป้องกันการตั้งครรภ์ในวัยรุ่น</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i> วันที่ 22 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-light text-muted border px-3 py-2" style="font-weight: 400; font-size: 0.85rem;">
+                        <i class="fas fa-lock"></i> ยังไม่มีเอกสาร
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">6</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมวันสุนทรภู่และวันภาษาไทยแห่งชาติ</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i> วันที่ 22 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-light text-muted border px-3 py-2" style="font-weight: 400; font-size: 0.85rem;">
+                        <i class="fas fa-lock"></i> ยังไม่มีเอกสาร
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </div>
+        <!-- ======================= END PAGE 2 ======================= -->
+
+
+        <!-- ======================= PAGE 3 (ตารางรายงานการเข้าร่วมกิจกรรม) ======================= -->
+        <div id="page-3" style="display: none;">
+          
+          <div class="text-center mb-4">
+            <h2 class="prompt-font section-title">แบบรายงานการเข้าร่วมกิจกรรม</h2>
+            <div class="divider">
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+              <i class="fas fa-edit" style="color: #D4AF37;"></i>
+              <div class="line" style="background-color: #D4AF37; width: 40px;"></div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <button class="btn btn-back px-4 py-2" onclick="switchPage('page-1')">
+              <i class="fas fa-arrow-left"></i> ย้อนกลับสู่หน้าเมนูหลัก
+            </button>
+          </div>
+
+          <div class="table-container">
+            <div class="table-responsive">
+              <table class="table custom-table align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center" style="width: 10%;">ลำดับ</th>
+                    <th scope="col" style="width: 60%;">วันที่จัดกิจกรรม / ชื่อกิจกรรม</th>
+                    <th scope="col" class="text-center" style="width: 30%;">รายงานการเข้าร่วม</th>
+                  </tr>
+                </thead>
+                <tbody class="prompt-font">
+                  <tr>
+                    <td class="text-center">1</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมจิตอาสาพัฒนามัสยิด</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i>  วันที่ 15 กรกฎาคม  2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSffT4dskxPj4K9Mqp7wf53H9NFU0JHG6Jwl_KiIBTZ2oRKOeg/viewform" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-clipboard-check"></i> ทำแบบรายงาน
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">2</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมส่งเสริมศาสนา ศิลปะ วัฒนธรรม (หล่อเทียน)</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i>  วันที่ 15 กรกฎาคม 2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSffT4dskxPj4K9Mqp7wf53H9NFU0JHG6Jwl_KiIBTZ2oRKOeg/viewform" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-clipboard-check"></i> ทำแบบรายงาน
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">3</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมอบรมคุณธรรม จริยธรรม</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i>  วันที่ 21 กรกฎาคม 2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSffT4dskxPj4K9Mqp7wf53H9NFU0JHG6Jwl_KiIBTZ2oRKOeg/viewform" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-clipboard-check"></i> ทำแบบรายงาน
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">4</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมส่งเสริมศาสนา ศิลปะ วัฒนธรรม (แห่เทียน)</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i>  วันที่ 21 กรกฎาคม 2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSffT4dskxPj4K9Mqp7wf53H9NFU0JHG6Jwl_KiIBTZ2oRKOeg/viewform" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-clipboard-check"></i> ทำแบบรายงาน
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">5</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมเผยแพร่ความรู้ด้านอนามัยการเจริญพันธุ์ และการป้องกันการตั้งครรภ์ในวัยรุ่น</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i>  วันที่ 22 กรกฎาคม 2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLScmcLqjjzXSVnY9AebhwEVVz37G81zMfhu9zU8ZaIXmtpcWAg/viewform?pli=1" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-clipboard-check"></i> ทำแบบรายงาน
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">6</td>
+                    <td>
+                      <strong style="color: #8B0000; font-size: 1.1rem;">กิจกรรมวันสุนทรภู่และวันภาษาไทยแห่งชาติ</strong><br>
+                      <span class="text-muted" style="font-size: 0.9em;"><i class="far fa-calendar-alt"></i>  วันที่ 22 กรกฎาคม 2569</span>
+                    </td>
+                    <td class="text-center">
+                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHab0F15VoVQTfPT_X2O3TbsB0Y3psyxhhfYGFBAg1nFIHzA/viewform?pli=1" target="_blank" class="btn btn-green btn-sm px-3 py-2">
+                        <i class="fas fa-clipboard-check"></i> ทำแบบรายงาน
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+        <!-- ======================= END PAGE 3 ======================= -->
 
       </div>
     </section>
 
+    <!-- ======================= FOOTER ======================= -->
     <div class="footer">
       <div class="footer-container">
+        
+        <!-- Column 1 -->
         <div class="footer-col">
           <h5 class="prompt-font"><i class="fas fa-layer-group"></i> หน่วยงานสนับสนุน</h5>
-          <ul>
+          <ul class="contact-list">
             <li><i class="fas fa-users" style="color:#0984e3;"></i> ฝ่ายกิจการนักเรียน-นักศึกษา</li>
             <li><i class="fas fa-award" style="color:#e17055;"></i> องค์การนักวิชาชีพในอนาคตแห่งประเทศไทย</li>
           </ul>
         </div>
+        
+        <!-- Column 2 -->
         <div class="footer-col">
           <h5 class="prompt-font"><i class="fas fa-phone-alt"></i> ช่องทางติดต่อ</h5>
-          <ul>
+          <ul class="contact-list">
             <li><i class="fas fa-envelope" style="color:#d63031;"></i> Email: aft.technicpattani@gmail.com</li>
             <li><i class="fab fa-line" style="color:#00b894;"></i> ID LINE: adisak_2006</li>
             <li><i class="fas fa-phone" style="color:#0984e3;"></i> 093-549-6751</li>
           </ul>
         </div>
+
+        <!-- Column 3: สถิติการเข้าชม -->
+        <div class="footer-col">
+          <h5 class="prompt-font"><i class="fas fa-chart-line"></i> สถิติการเข้าชมเว็บไซต์</h5>
+          <div class="stats-card">
+            <ul class="stats-list">
+              <li>
+                <span><span class="pulse-dot"></span>กำลังออนไลน์</span>
+                <strong id="stat-online">0</strong>
+              </li>
+              <li>
+                <span><i class="fas fa-calendar-day text-secondary"></i> วันนี้</span>
+                <strong id="stat-today">0</strong>
+              </li>
+              <li>
+                <span><i class="fas fa-calendar-week text-secondary"></i> สัปดาห์นี้</span>
+                <strong id="stat-week">0</strong>
+              </li>
+              <li>
+                <span><i class="fas fa-calendar-alt text-secondary"></i> เดือนนี้</span>
+                <strong id="stat-month">0</strong>
+              </li>
+              <li>
+                <span><i class="fas fa-globe text-secondary"></i> ทั้งหมด</span>
+                <strong id="stat-total">0</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
       </div>
       <div class="footer-bottom">
         <p>Developed by <strong class="prompt-font">Adisak Loma</strong></p>
@@ -461,8 +857,50 @@
     function closeApp() {
       document.getElementById('app-viewer').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
-      document.getElementById('app-iframe').src = ''; // เคลียร์ URL คืน
+      document.getElementById('app-iframe').src = ''; 
     }
+
+    // 4. ฟังก์ชันสลับหน้าหลักและหน้าตาราง
+    function switchPage(pageId) {
+      document.getElementById('page-1').style.display = 'none';
+      document.getElementById('page-2').style.display = 'none';
+      document.getElementById('page-3').style.display = 'none';
+      
+      document.getElementById(pageId).style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 5. ระบบจำลองตัวเลขสถิติ (สำหรับแสดงผล UI เท่านั้น)
+    function simulateVisitorStats() {
+      // สุ่มผู้ใช้งานที่กำลังออนไลน์ (ระหว่าง 1 ถึง 12 คน)
+      const onlineNow = Math.floor(Math.random() * 12) + 1;
+      // จำลองตัวเลขที่สมจริง
+      const today = Math.floor(Math.random() * 50) + onlineNow + 20; 
+      const thisWeek = today + Math.floor(Math.random() * 300) + 150;
+      const thisMonth = thisWeek + Math.floor(Math.random() * 1200) + 800;
+      const total = "15,842"; // ตัวเลขยอดรวมจำลอง
+
+      document.getElementById('stat-online').textContent = onlineNow;
+      document.getElementById('stat-today').textContent = today;
+      document.getElementById('stat-week').textContent = thisWeek;
+      document.getElementById('stat-month').textContent = thisMonth;
+      document.getElementById('stat-total').textContent = total;
+
+      // สุ่มเปลี่ยนเลขกำลังออนไลน์ทุกๆ 10-15 วินาที เพื่อให้ดูเหมือนมีคนเข้าออก
+      setInterval(() => {
+        let currentOnline = parseInt(document.getElementById('stat-online').textContent);
+        // สุ่มบวกหรือลบ 1-2 คน
+        let change = Math.floor(Math.random() * 3) - 1; 
+        let newOnline = currentOnline + change;
+        if (newOnline < 1) newOnline = 1;
+        document.getElementById('stat-online').textContent = newOnline;
+      }, 12000);
+    }
+    
+    // เรียกใช้งานเมื่อโหลดหน้าเว็บเสร็จ
+    window.onload = function() {
+      simulateVisitorStats();
+    };
   </script>
 
 </body>
