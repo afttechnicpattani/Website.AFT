@@ -296,6 +296,19 @@
       color: white;
     }
 
+    /* ---------------- Modal Custom ---------------- */
+    .modal-custom-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      font-size: 1.1rem; border-radius: 12px; padding: 15px;
+      border: 2px solid #8B0000; color: #8B0000; background: white;
+      transition: all 0.3s; text-decoration: none; font-weight: 500;
+    }
+    .modal-custom-btn:hover {
+      background: #8B0000; color: white; transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(139, 0, 0, 0.2);
+    }
+    .modal-custom-btn i { font-size: 1.4rem; }
+
     /* ---------------- Footer & Stats ---------------- */
     .footer { padding-top: 50px; color: #1b325f; background-color: #ffffff; border-top: 1px solid #eaeaea; }
     .footer-container {
@@ -442,6 +455,7 @@
             </div>
           </div>
 
+          <!-- ตาราง Card เมนู 6 เมนู -->
           <div class="row justify-content-center mb-5 pb-4" style="gap: 24px;">
             
             <div class="col-5">
@@ -464,7 +478,6 @@
               </button>
             </div>
 
-            <!-- เมนูที่ 3: สลับไปหน้าตารางรายงาน (Page 3) -->
             <div class="col-5">
               <button class="portal-card" onclick="switchPage('page-3')">
                 <div class="icon-wrapper">
@@ -475,7 +488,6 @@
               </button>
             </div>
 
-            <!-- เมนูที่ 4: สลับไปหน้าตารางเกียรติบัตร (Page 2) -->
             <div class="col-5">
               <button class="portal-card" onclick="switchPage('page-2')">
                 <div class="icon-wrapper">
@@ -483,6 +495,29 @@
                 </div>
                 <div class="card-title">ดาวน์โหลดเกียรติบัตรการเข้าร่วมกิจกรรม</div>
                 <div class="card-text">ระบบค้นหาและดาวน์โหลดเกียรติบัตร<br>สำหรับผู้เข้าร่วมโครงการและกิจกรรมต่างๆ</div>
+              </button>
+            </div>
+            
+            <!-- เมนูเพิ่มที่ 1: QR Code แสกนชื่อเข้าแถว -->
+            <div class="col-5">
+              <!-- สั่งให้เปิด Modal ผ่าน data-bs-toggle -->
+              <button class="portal-card" data-bs-toggle="modal" data-bs-target="#qrModal">
+                <div class="icon-wrapper">
+                  <i class="fas fa-qrcode"></i>
+                </div>
+                <div class="card-title">QR Code สำหรับแสกนชื่อเข้าแถว</div>
+                <div class="card-text">สแกนชื่อ นร. นศ. เพื่อเข้าร่วมกิจกรรมหน้าเสาธง<br>ประจำปีการศึกษา 2569</div>
+              </button>
+            </div>
+
+            <!-- เมนูเพิ่มที่ 2: สถิติการแสกนชื่อเข้าแถว -->
+            <div class="col-5">
+              <button class="portal-card" data-bs-toggle="modal" data-bs-target="#statModal">
+                <div class="icon-wrapper">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="card-title">สถิติการแสกนชื่อร่วมกิจกรรมเข้าแถว</div>
+                <div class="card-text">ตรวจสอบข้อมูลและสถิติการเข้าร่วมกิจกรรม<br>ภาคเรียนที่ 1 ปีการศึกษา 2569</div>
               </button>
             </div>
 
@@ -807,12 +842,61 @@
 
   </div> 
 
+  <!-- ======================= MODAL: QR Code ======================= -->
+  <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 15px; border: none; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <div class="modal-header" style="background-color: #8B0000; color: white; border-bottom: none;">
+          <h5 class="modal-title prompt-font" id="qrModalLabel"><i class="fas fa-qrcode"></i> เลือกระดับชั้น (QR Code)</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 text-center prompt-font">
+          <p class="mb-4 text-muted">กรุณาเลือกระดับชั้นเพื่อรับ QR Code สำหรับแสกนชื่อเข้าแถว ประจำปีการศึกษา 2569</p>
+          <div class="d-grid gap-3">
+            <a href="https://drive.google.com/drive/folders/1oAgJGmb_qtM_w7yjpP0_m3PUviYdFblQ" target="_blank" class="modal-custom-btn">
+              <i class="fas fa-user-graduate"></i> ระดับชั้น ปวช. ประจำปีการศึกษา 2569
+            </a>
+            <a href="https://drive.google.com/drive/folders/1isGHpOrsG_kwJ1QJvNxIVYp5Q_vrim2m" target="_blank" class="modal-custom-btn">
+              <i class="fas fa-user-tie"></i> ระดับชั้น ปวส. ประจำปีการศึกษา 2569
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= MODAL: สถิติการแสกนเข้าแถว ======================= -->
+  <div class="modal fade" id="statModal" tabindex="-1" aria-labelledby="statModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 15px; border: none; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <div class="modal-header" style="background-color: #8B0000; color: white; border-bottom: none;">
+          <h5 class="modal-title prompt-font" id="statModalLabel"><i class="fas fa-chart-pie"></i> เลือกระดับชั้น (สถิติเข้าแถว)</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 text-center prompt-font">
+          <p class="mb-4 text-muted">กรุณาเลือกระดับชั้นเพื่อดูสถิติการแสกนชื่อร่วมกิจกรรมเข้าแถว ภาคเรียนที่ 1 ปีการศึกษา 2569</p>
+          <div class="d-grid gap-3">
+            <a href="https://docs.google.com/spreadsheets/d/1-Ddu3D9lG_KVrKcfwdaPs8F2FdLw27vixl0aqrBxVv4/edit?gid=1837438035#gid=1837438035" target="_blank" class="modal-custom-btn">
+              <i class="fas fa-chart-bar"></i> ระดับชั้น ปวช. ประจำปีการศึกษา 2569
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/1dRhrs0d_oS0ux6dwtxCqWLG7v6DQzAwivhiidTrG5Cw/edit?gid=1837438035#gid=1837438035" target="_blank" class="modal-custom-btn">
+              <i class="fas fa-chart-area"></i> ระดับชั้น ปวส. ประจำปีการศึกษา 2569
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="app-viewer">
     <button class="btn-close-app" onclick="closeApp()">
       <i class="fas fa-arrow-left"></i> กลับหน้าหลัก
     </button>
     <iframe id="app-iframe" src=""></iframe>
   </div>
+
+  <!-- โหลด Bootstrap JS เพื่อให้ Modal ป๊อปอัปทำงานได้ -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     // 1. ระบบนับถอยหลังหน้า Splash Screen
@@ -872,13 +956,11 @@
 
     // 5. ระบบจำลองตัวเลขสถิติ (สำหรับแสดงผล UI เท่านั้น)
     function simulateVisitorStats() {
-      // สุ่มผู้ใช้งานที่กำลังออนไลน์ (ระหว่าง 1 ถึง 12 คน)
       const onlineNow = Math.floor(Math.random() * 12) + 1;
-      // จำลองตัวเลขที่สมจริง
       const today = Math.floor(Math.random() * 50) + onlineNow + 20; 
       const thisWeek = today + Math.floor(Math.random() * 300) + 150;
       const thisMonth = thisWeek + Math.floor(Math.random() * 1200) + 800;
-      const total = "15,842"; // ตัวเลขยอดรวมจำลอง
+      const total = "15,842"; 
 
       document.getElementById('stat-online').textContent = onlineNow;
       document.getElementById('stat-today').textContent = today;
@@ -886,10 +968,8 @@
       document.getElementById('stat-month').textContent = thisMonth;
       document.getElementById('stat-total').textContent = total;
 
-      // สุ่มเปลี่ยนเลขกำลังออนไลน์ทุกๆ 10-15 วินาที เพื่อให้ดูเหมือนมีคนเข้าออก
       setInterval(() => {
         let currentOnline = parseInt(document.getElementById('stat-online').textContent);
-        // สุ่มบวกหรือลบ 1-2 คน
         let change = Math.floor(Math.random() * 3) - 1; 
         let newOnline = currentOnline + change;
         if (newOnline < 1) newOnline = 1;
@@ -897,7 +977,6 @@
       }, 12000);
     }
     
-    // เรียกใช้งานเมื่อโหลดหน้าเว็บเสร็จ
     window.onload = function() {
       simulateVisitorStats();
     };
